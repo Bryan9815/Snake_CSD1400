@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Snake\GameOver.cpp" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\snake.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Snake\GameOver.h" />
     <ClInclude Include="src\Snake\snake.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -15,9 +15,15 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>src\Snake</Filter>
     </ClCompile>
+    <ClCompile Include="Snake\GameOver.cpp">
+      <Filter>src\Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
+      <Filter>src\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake\GameOver.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
   </ItemGroup>
