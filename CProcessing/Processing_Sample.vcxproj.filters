@@ -16,11 +16,17 @@
       <Filter>src\Snake</Filter>
     </ClCompile>
     <ClCompile Include="src\Grid\grid.c" />
+    <ClCompile Include="src\Snake\GameOver.c">
+      <Filter>src\Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
     <ClInclude Include="src\Grid\grid.h" />
+    <ClInclude Include="src\Snake\GameOver.h">
+      <Filter>src\Snake</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

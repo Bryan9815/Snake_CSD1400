@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClCompile Include="src\Grid\grid.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\GameOver.c" />
     <ClCompile Include="src\Snake\snake.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grid\grid.h" />
+    <ClInclude Include="src\Snake\GameOver.h" />
     <ClInclude Include="src\Snake\snake.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
