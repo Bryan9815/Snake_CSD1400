@@ -1,13 +1,13 @@
-
+#include <stdio.h>
 #include <stdlib.h>
 #include <cprocessing.h>
 
-/*
+/*-------------------------
 This is for casting a grid
-*/
+--------------------------*/
 
-#define GRID_WIDTH 50				//Set the horizontal length
-#define GRID_HEIGHT 50				//Set the vertical length
+#define GRID_WIDTH 48							//Set the horizontal length
+#define GRID_HEIGHT 36							//Set the vertical length
 
 #define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
 
@@ -21,11 +21,10 @@ typedef enum
 
 }GRID_ELEMENTS;	//@todo Might want to relocate to header file
 
-//Grid that stores the element type
+//Grid that stores the GRID_ELEMENTS type
 GRID_ELEMENTS grid[GRID_SIZE];	//@todo Might want to relocate to snake, or I can make a getter to return this variable
 
-
-//Initialize Grid
+/*Initialize Grid*/
 void Grid_Init(void) 
 {
 	//Boundary
@@ -46,19 +45,20 @@ void Grid_Init(void)
 	}
 }
 
-//Draw Call/Update Function for Grid
+/*Draw Call/Update Function for Grid*/
 void Grid_Update(void)
 {
 	//Checks thru all the elements
 	for (int i = 0; i < GRID_SIZE; i++) 
 	{
+		
 		switch (grid[i]) 
 		{
 		case GE_WALL:
 			CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-			//CP_Settings_RectMode(CP_POSITION_CENTER);
-			CP_Graphics_DrawRect(CP_System_GetWindowWidth() / (float)GRID_WIDTH * ((i) /GRID_WIDTH),
-				CP_System_GetWindowHeight() / (float)GRID_HEIGHT * ((i ) % GRID_HEIGHT),
+			CP_Graphics_DrawRect(
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
 				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
 				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
 			break;
@@ -67,5 +67,4 @@ void Grid_Update(void)
 
 		}
 	}
-	
 }

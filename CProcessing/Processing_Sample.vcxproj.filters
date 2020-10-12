@@ -7,6 +7,9 @@
     <Filter Include="src\Snake">
       <UniqueIdentifier>{612d7d68-a0e6-4437-ac7d-565770dc6896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Grid">
+      <UniqueIdentifier>{d4301d2c-7aea-4fd5-b459-d63ffe06bdce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -15,18 +18,22 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>src\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grid\grid.c" />
     <ClCompile Include="src\Snake\GameOver.c">
       <Filter>src\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grid\grid.c">
+      <Filter>src\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grid\grid.h" />
     <ClInclude Include="src\Snake\GameOver.h">
       <Filter>src\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grid\grid.h">
+      <Filter>src\Grid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
