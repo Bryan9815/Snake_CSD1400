@@ -15,10 +15,12 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>src\Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\Grid\grid.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grid\grid.h" />
   </ItemGroup>
 </Project>

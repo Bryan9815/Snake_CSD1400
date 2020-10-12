@@ -24,7 +24,7 @@ static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 void game_init(void)
 {
 	// initialize variables and CProcessing settings for this gamestate
-	CP_System_SetWindowSize(1920, 1080);
+	CP_System_SetWindowSize(1200, 900);
 	snake_init();
 }
 
