@@ -1,0 +1,21 @@
+
+
+/*For console and printf*/
+#include "windows.h"
+#include <stdio.h>
+
+/*The following stuff is for console output.
+The current console output function from CProcessing
+is being fixed.
+
+Make sure this is only done once in the entire application*/
+
+if (AllocConsole())
+{
+	FILE* fpstdin = stdin, * fpstdout = stdout, * fpstderr =
+		stderr;
+
+	freopen_s(&fpstdin, "CONIN$", "r", stdin);
+	freopen_s(&fpstdout, "CONOUT$", "w", stdout);
+	freopen_s(&fpstderr, "CONOUT$", "w", stderr);
+}
