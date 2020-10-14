@@ -9,7 +9,7 @@
 // documentation link:
 // https://inside.digipen.edu/main/GSDP:GAM100/CProcessing
 //
-// Copyright © 2020 DigiPen, All rights reserved.
+// Copyright ï¿½ 2020 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
 #include "cprocessing.h"
@@ -24,7 +24,6 @@ static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 void game_init(void)
 {
 	// initialize variables and CProcessing settings for this gamestate
-	CP_System_SetWindowSize(1920, 1080);
 	snake_init();
 }
 
