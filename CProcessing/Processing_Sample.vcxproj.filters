@@ -15,9 +15,15 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>src\Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\Snake\food.c">
+      <Filter>src\Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
+      <Filter>src\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\food.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
   </ItemGroup>

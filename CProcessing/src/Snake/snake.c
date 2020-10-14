@@ -1,6 +1,7 @@
 #include "snake.h"
 #include <stdlib.h>
 #include "cprocessing.h"
+#include "food.h"
 
 void snake_init(void)
 {
