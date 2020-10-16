@@ -13,7 +13,7 @@ This is for casting a grid
 
 #define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
 
-GRID_ELEMENTS grid[GRID_SIZE];	//@todo Might want to relocate to snake, or I can make a getter to return this variable
+GRID_ELEMENTS grid[GRID_SIZE];	//Grid Array
 
 CP_Color bgColor;
 
@@ -32,11 +32,7 @@ void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	GridInit(grid, GRID_WIDTH, GRID_HEIGHT);
-
-	for (int i = 0; i < snakeSize; i++)
-	{
-		
-	}
+	
 }
 
 void snake_update(void)

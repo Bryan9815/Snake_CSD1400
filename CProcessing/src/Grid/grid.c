@@ -1,20 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cprocessing.h>
-
-//Different type of elements store for the array;
-
-
-//Grid that stores the GRID_ELEMENTS type
-
-typedef enum
-{
-	GE_VOID,		//Empty
-	GE_WALL,		//Wall
-	GE_SNAKE,		//Snake
-	GE_FOOD			//Food
-
-}GRID_ELEMENTS;	//@todo Might want to relocate to header file
+#include "grid.h"
 
 /*Initialize Grid*/
 void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
@@ -55,9 +42,16 @@ void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
 				CP_System_GetWindowWidth() / (float)gridW,
 				CP_System_GetWindowHeight() / (float)gridH);
 			break;
+		case GE_SNAKE:
+			CP_Settings_Fill(CP_Color_Create(0, 255, 255, 255));
+			CP_Graphics_DrawRect(
+				(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
+				(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW),
+				CP_System_GetWindowWidth() / (float)gridW,
+				CP_System_GetWindowHeight() / (float)gridH);
+			break;
 		case GE_VOID:
 			break;
-
 		}
 	}
 }
