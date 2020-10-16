@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "cprocessing.h"
 #include "../Grid/grid.h"
+#include "food.h"
 
 
 CP_Color bgColor;
