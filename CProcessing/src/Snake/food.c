@@ -1,5 +1,6 @@
 #include "food.h"
 #include <cprocessing.h>
+#include "../Grid/grid.h"
 
 void spawn_food(CP_Vector food_pos)
 {

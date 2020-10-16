@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cprocessing.h>
+#include <stdbool.h>
 #include "grid.h"
+
+/*Debug Flag*/
+bool debug = true;
 
 /*Initialize Grid*/
 void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
@@ -10,16 +14,16 @@ void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
 	//Boundary
 	for (int i = 0; i < gridW * gridH; i++) {
 
-		if (	i < gridW												/*Top Boundary*/
+		if (	i < gridW											/*Top Boundary*/
 			|| (i % gridW) == 0										/*Left Boundary*/
-			|| (i % gridW) == gridW - 1							/*Right Boundary*/
+			|| (i % gridW) == gridW - 1								/*Right Boundary*/
 			|| i >= (gridH - 1) * gridW && i < gridW * gridH		/*Bottom Boundary*/
 			) {
-			grid[i] = GE_WALL;												//Set Grid element to wall
+			grid[i] = GE_WALL;										//Set grid element to wall
 		}
 		else 
 		{
-			grid[i] = GE_VOID;												//Empty Element
+			grid[i] = GE_VOID;										//Empty element		
 		}
 		
 	}
@@ -31,7 +35,7 @@ void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
 	//Checks thru all the elements
 	for (int i = 0; i < gridW * gridH; i++)
 	{
-		
+#if !debug
 		switch (grid[i]) 
 		{
 		case GE_WALL:
@@ -53,5 +57,19 @@ void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
 		case GE_VOID:
 			break;
 		}
+#endif
 	}
+
+#if debug
+	if (debug)
+	{
+		char _buffer[20];
+		snprintf(_buffer, 20, "%d", i - '0');
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Font_DrawText(_buffer,
+			(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
+			(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW));
+	}
+#endif	
+
 }

@@ -32,6 +32,12 @@ void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	GridInit(grid, GRID_WIDTH, GRID_HEIGHT);
+
+	for (int i = 0; i < snakeSize; i++)
+	{
+		grid[GRID_SIZE / 2 - (GRID_WIDTH / 2) - i] = GE_SNAKE;
+	}
+
 	
 }
 
