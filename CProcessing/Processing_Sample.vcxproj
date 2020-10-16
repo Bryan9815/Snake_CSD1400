@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="src\Grid\grid.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\fader.c" />
     <ClCompile Include="src\Snake\GameOver.c" />
     <ClCompile Include="src\Snake\snake.c" />
     <ClCompile Include="src\Snake\food.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grid\grid.h" />
+    <ClInclude Include="src\Snake\fader.h" />
     <ClInclude Include="src\Snake\GameOver.h" />
     <ClInclude Include="src\Snake\snake.h" />
     <ClInclude Include="src\Snake\food.h" />

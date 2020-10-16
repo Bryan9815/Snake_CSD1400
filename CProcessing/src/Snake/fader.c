@@ -19,7 +19,7 @@ void UpdateFade(void)
 		CP_Settings_Fill(CP_Color_Create(0, 0, 0, fadeAlpha));
 	}
 		
-	CP_Graphics_DrawRect(0, 0, CP_System_GetWindowWidth(), CP_System_GetWindowHeight());
+	CP_Graphics_DrawRect(0, 0, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
 }
 
 

@@ -1,5 +1,5 @@
 #include "food.h"
-#include "../../CProcessing/inc/cprocessing.h"
+#include <cprocessing.h>
 
 void spawn_food(CP_Vector food_pos)
 {

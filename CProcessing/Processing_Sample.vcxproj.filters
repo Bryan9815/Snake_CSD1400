@@ -10,6 +10,9 @@
     <Filter Include="src\Grid">
       <UniqueIdentifier>{d4301d2c-7aea-4fd5-b459-d63ffe06bdce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Snake\Screens">
+      <UniqueIdentifier>{dbf4f9ac-3fd1-4ebd-b416-dce8719faf0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -18,22 +21,30 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>src\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="src\Snake\GameOver.c">
-      <Filter>src\Snake</Filter>
-    </ClCompile>
     <ClCompile Include="src\Grid\grid.c">
       <Filter>src\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Snake\food.c" />
+    <ClCompile Include="src\Snake\GameOver.c">
+      <Filter>src\Snake\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Snake\fader.c">
+      <Filter>src\Snake\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>src\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="src\Snake\GameOver.h">
-      <Filter>src\Snake</Filter>
-    </ClInclude>
     <ClInclude Include="src\Grid\grid.h">
       <Filter>src\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\food.h" />
+    <ClInclude Include="src\Snake\GameOver.h">
+      <Filter>src\Snake\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\fader.h">
+      <Filter>src\Snake\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
