@@ -10,6 +10,9 @@
     <Filter Include="src\Grid">
       <UniqueIdentifier>{d4301d2c-7aea-4fd5-b459-d63ffe06bdce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Food">
+      <UniqueIdentifier>{d1324af2-fbea-410c-959a-56c0ae32765c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -24,6 +27,9 @@
     <ClCompile Include="src\Grid\grid.c">
       <Filter>src\Grid</Filter>
     </ClCompile>
+    <ClCompile Include="src\Food\food.c">
+      <Filter>src\Food</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
@@ -34,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="src\Grid\grid.h">
       <Filter>src\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Food\food.h">
+      <Filter>src\Food</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
