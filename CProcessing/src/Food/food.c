@@ -1,10 +1,8 @@
 #include "food.h"
 #include "../../CProcessing/inc/cprocessing.h"
-#ifndef GRID_WIDTH, GRID_HEIGHT, GRID_SIZE
 #define GRID_WIDTH 48							//Set the horizontal length
 #define GRID_HEIGHT 36							//Set the vertical length
 #define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
-#endif
 
 //function for setting food position
 int spawn_food(int food_pos)
