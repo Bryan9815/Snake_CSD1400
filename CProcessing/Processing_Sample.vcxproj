@@ -19,17 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Food\food.c" />
     <ClCompile Include="src\Grid\grid.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Score\score.c" />
     <ClCompile Include="src\Snake\GameOver.c" />
     <ClCompile Include="src\Snake\snake.c" />
-    <ClCompile Include="src\Snake\food.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Food\food.h" />
     <ClInclude Include="src\Grid\grid.h" />
+    <ClInclude Include="src\Score\score.h" />
     <ClInclude Include="src\Snake\GameOver.h" />
     <ClInclude Include="src\Snake\snake.h" />
-    <ClInclude Include="src\Snake\food.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
