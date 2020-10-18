@@ -5,7 +5,7 @@
 #include "grid.h"
 
 /*Debug Flag*/
-bool debug = true;
+#define debug false
 
 /*Initialize Grid*/
 void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
@@ -77,15 +77,13 @@ void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
 	}
 
 #if debug
-	if (debug)
-	{
-		char _buffer[20];
-		snprintf(_buffer, 20, "%d", i - '0');
-		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-		CP_Font_DrawText(_buffer,
-			(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
-			(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW));
-	}
+	char _buffer[20];
+	snprintf(_buffer, 20, "%d", i - '0');
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Font_DrawText(_buffer,
+		(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
+		(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW));
+	
 #endif	
 
 }
