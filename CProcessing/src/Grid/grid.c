@@ -3,6 +3,8 @@
 #include <cprocessing.h>
 #include "grid.h"
 
+/*Debug Flag*/
+#define debug false
 
 /*Initialize Grid*/
 void Grid_Init(GRID_ELEMENTS* grid)
@@ -31,7 +33,7 @@ void Grid_Update(GRID_ELEMENTS* grid)
 	//Checks thru all the elements
 	for (int i = 0; i < GRID_SIZE; i++) 
 	{
-		
+#if !debug
 		switch (grid[i]) 
 		{
 		case GE_WALL:
@@ -54,5 +56,16 @@ void Grid_Update(GRID_ELEMENTS* grid)
 			break;
 
 		}
+#endif
 	}
+
+#if debug
+	char _buffer[20];
+	snprintf(_buffer, 20, "%d", i - '0');
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Font_DrawText(_buffer,
+		(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
+		(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW));
+
+#endif	
 }
