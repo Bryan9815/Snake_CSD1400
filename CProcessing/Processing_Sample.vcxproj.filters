@@ -36,6 +36,9 @@
     <ClCompile Include="src\Score\score.c">
       <Filter>src\score</Filter>
     </ClCompile>
+    <ClCompile Include="src\Snake\MainMenu.c">
+      <Filter>src\Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="src\Score\score.h">
       <Filter>src\score</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\MainMenu.h">
+      <Filter>src\Snake</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
