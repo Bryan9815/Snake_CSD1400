@@ -6,17 +6,19 @@
 #include "../Food/food.h"
 #include "../Score/score.h"
 
+//snake object
 typedef struct
 {
 	CP_Vector	snakePos;
 	int			radius;
-	float		speed;
+	int			delay;
 	direction	dir;
 
 }snake;
 
 CP_Color snakeColor;
 snake s;
+int defaultDelay = 20;
 
 int foodPosition;
 int Score;
@@ -32,6 +34,7 @@ void Snake_Draw(void)
 	Grid_Update(grid);
 }
 
+//Draw the snake's head
 void Snake_Display(void)
 {
 	CP_Settings_Fill(snakeColor);
@@ -41,6 +44,7 @@ void Snake_Display(void)
 		(float)s.radius);
 }
 
+//Initialize snake variables
 void Snake_Create(void)
 {
 	snakeColor = CP_Color_Create(255, 100, 100, 255);
@@ -48,12 +52,12 @@ void Snake_Create(void)
 	s.snakePos.y = GRID_HEIGHT / 2;
 	s.radius = 40;
 	s.dir = CP_Random_RangeInt(1, 4);
-	s.speed = CP_System_GetDt() * 2;
+	s.delay = defaultDelay;
 }
 
+//Snake Direction
 void Snake_Movement(void)
 {
-
 	if (CP_Input_KeyTriggered(KEY_UP) && (s.dir != DOWN))
 	{
 		s.dir = UP;
@@ -80,6 +84,42 @@ void Snake_Movement(void)
 	
 }
 
+//Constant Snake Movement
+void Snake_Update_Position(void)
+{
+	if (s.delay == defaultDelay)
+	{
+		switch (s.dir)
+		{
+		case LEFT:
+			s.snakePos.x -= 1;
+			break;
+
+		case RIGHT:
+			s.snakePos.y += 1;
+			break;
+
+		case UP:
+			s.snakePos.y -= 1;
+			break;
+
+		case DOWN:
+			s.snakePos.y += 1;
+			break;
+
+		default:
+			break;
+		}
+
+		s.delay = 0;
+	}
+	else
+	{
+		s.delay += 1;
+	}
+
+}
+
 void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
@@ -93,6 +133,7 @@ void snake_update(void)
 {
 	Snake_Draw();
 	Snake_Display();
+	Snake_Update_Position();
 	Snake_Movement();
 	Score += AddScore();
 	DisplayScore(Score);
