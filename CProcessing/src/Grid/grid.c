@@ -59,6 +59,15 @@ void Grid_Update(GRID_ELEMENTS* grid)
 				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
 				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
 				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
+			break;
+		case GE_TAIL:
+			CP_Settings_Fill(CP_Color_Create(255, 0, 255, 255));
+			CP_Graphics_DrawRect(
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
+				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
+				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
+			break;
 		case GE_VOID:
 			break;
 

@@ -24,6 +24,8 @@ typedef enum
 
 CP_Color snakeColor;
 snake s;
+int tail[100];
+int tailSize = 3;
 GameState gameState;
 int defaultDelay = 20;
 
@@ -40,6 +42,10 @@ void Snake_Draw(void)
 	CP_Settings_Background(bgColor);
 	Grid_Update(grid);
 	grid[s.snakePos] = GE_SNAKE;
+	for (int i = 0; i < tailSize; i++)
+	{
+		grid[tail[i]] = GE_TAIL;
+	}
 }
 
 //Initialize snake variables
@@ -48,6 +54,26 @@ void Snake_Create(void)
 	s.dir = CP_Random_RangeInt(1, 4);
 	s.delay = defaultDelay;
 	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
+	for (int i = 0; i < tailSize; i++)
+	{
+		switch (s.dir)
+		{
+		case LEFT:
+			tail[i] = s.snakePos + i;
+			break;
+		case RIGHT:
+			tail[i] = s.snakePos - i;
+			break;
+		case UP:
+			tail[i] = s.snakePos + GRID_WIDTH * i;
+			break;
+		case DOWN:
+			tail[i] = s.snakePos - GRID_WIDTH * i;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void snake_init(void)
@@ -87,7 +113,10 @@ void Snake_Movement(void)
 	{
 		s.dir = RIGHT;
 	}
-	
+	if (CP_Input_KeyTriggered(KEY_R))
+	{
+		snake_init();
+	}
 }
 
 //Constant Snake Movement
@@ -95,8 +124,15 @@ void Snake_Update_Position(void)
 {
 	if (s.delay == defaultDelay)
 	{
+		// Wipe old snake & tail positions
 		grid[s.snakePos] = GE_VOID;
-		switch (s.dir)
+		for (int i = 0; i < tailSize; i++)
+		{
+			grid[tail[i]] = GE_VOID;
+		}
+		int oldSnakePos = s.snakePos;
+
+		switch (s.dir) //Compute snake movement
 		{
 		case LEFT:
 			s.snakePos--;
@@ -120,7 +156,16 @@ void Snake_Update_Position(void)
 		if (grid[s.snakePos] == GE_WALL) //Boundary Check
 			Snake_Death();
 		else //Update Snake Position
+		{
+			for (int i = tailSize - 1; i > 0; i--) //Update Tail position;
+			{
+				tail[i] = tail[i - 1];
+				grid[tail[i]] = GE_TAIL;
+			}
+			tail[0] = oldSnakePos;
+			grid[tail[0]] = GE_TAIL;
 			grid[s.snakePos] = GE_SNAKE;
+		}
 		s.delay = 0;
 	}
 	else

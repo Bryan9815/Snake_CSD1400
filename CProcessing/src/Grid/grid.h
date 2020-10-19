@@ -13,6 +13,7 @@ typedef enum
 	GE_VOID,		//Empty
 	GE_WALL,		//Wall
 	GE_SNAKE,		//Snake
+	GE_TAIL,		//Tail
 	GE_FOOD			//Food
 
 }GRID_ELEMENTS;	
