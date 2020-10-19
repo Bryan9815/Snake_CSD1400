@@ -11,7 +11,8 @@ typedef struct
 {
 	int			snakePos;
 	float		delay;
-	direction	dir;
+	direction	dir,
+				inputdir;
 
 }snake;
 
@@ -52,6 +53,7 @@ void Snake_Draw(void)
 void Snake_Create(void)
 {
 	s.dir = CP_Random_RangeInt(1, 4);
+	s.inputdir = s.dir;
 	s.delay = CP_System_GetDt();
 	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
 	for (int i = 0; i < tailSize; i++)
@@ -74,7 +76,7 @@ void Snake_Create(void)
 			break;
 		}
 	}
-	defaultDelay = 7.0f;
+	defaultDelay = 10.0f;
 }
 
 void snake_init(void)
@@ -97,29 +99,31 @@ void Snake_Movement(void)
 {
 	if (CP_Input_KeyTriggered(KEY_UP) && (s.dir != DOWN))
 	{
-		s.dir = UP;
+		s.inputdir = UP;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_DOWN) && (s.dir != UP))
 	{
-		s.dir = DOWN;
+		s.inputdir = DOWN;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_LEFT) && (s.dir != RIGHT))
 	{
-		s.dir = LEFT;
+		s.inputdir = LEFT;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_RIGHT) && (s.dir != LEFT))
 	{
-		s.dir = RIGHT;
+		s.inputdir = RIGHT;
 	}
+
 	if (CP_Input_KeyTriggered(KEY_R))
 	{
 		snake_init();
 	}
 }
 
+#if 1
 //Constant Snake Movement
 void Snake_Update_Position(void)
 {
@@ -127,7 +131,7 @@ void Snake_Update_Position(void)
 	{
 		int oldSnakePos = s.snakePos;
 
-		switch (s.dir) //Compute snake movement
+		switch (s.inputdir) //Compute snake movement
 		{
 		case LEFT:
 			s.snakePos--;
@@ -148,6 +152,7 @@ void Snake_Update_Position(void)
 		default:
 			break;
 		}
+		s.dir = s.inputdir;
 		if (grid[s.snakePos] == GE_WALL || grid[s.snakePos] == GE_TAIL) //Wall and Tail collision check
 			Snake_Death();
 		else //Update Snake Position
@@ -178,6 +183,9 @@ void Snake_Update_Position(void)
 		s.delay += 1;
 	}
 }
+
+#endif
+
 
 void snake_update(void)
 {
