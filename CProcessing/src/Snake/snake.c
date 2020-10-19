@@ -5,6 +5,15 @@
 #include "../Grid/grid.h"
 #include "../Food/food.h"
 #include "../Score/score.h"
+#include "GameOver.h"
+#include <stdio.h>
+
+typedef enum
+{
+	MAIN_MENU,
+	GAME,
+	GAME_OVER,
+}GameState;
 
 //snake object
 typedef struct
@@ -16,22 +25,15 @@ typedef struct
 
 }snake;
 
-typedef enum
-{
-	MAIN_MENU,
-	GAME,
-	GAME_OVER,
-}GameState;
-
 CP_Color snakeColor;
 snake s;
-int tail[100];
-int tailSize = 1;
-GameState gameState;
+int tail[GRID_SIZE];
+int tailSize;
+GameState gameState = GAME;
 float defaultDelay;
 
-int foodPosition;
-int Score;
+int foodNumber;
+float Score;
 CP_Color bgColor;
 
 //Grid that stores the GRID_ELEMENTS type
@@ -83,14 +85,17 @@ void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	Score = 0;
+	tailSize = 1;
+	foodNumber = 0;
 	Grid_Init(grid);
 	Snake_Create();
-	gameState = GAME;
 }
 
 void Snake_Death(void)
 {
+	GameOver_init((int)Score);
 	gameState = GAME_OVER;
+	snake_init();
 }
 
 //Snake Direction
@@ -160,20 +165,20 @@ void Snake_Update_Position(void)
 			{
 				grid[tail[i]] = GE_VOID;
 			}
-			for (int i = tailSize - 1; i > 0; i--) //Update Tail position;
+			for (int i = tailSize - 1; i > 0; i--) //Update Tail position
 			{
 				tail[i] = tail[i - 1];
-				grid[tail[i]] = GE_TAIL;
 			}
 			tail[0] = oldSnakePos;
 			grid[tail[0]] = GE_TAIL;
 			if (grid[s.snakePos] == GE_FOOD) //Eat food
 			{
 				Score += 50;
+				foodNumber--;
 				tailSize++;
 				tail[tailSize - 1] = tail[tailSize - 2];
 			}
-			grid[s.snakePos] = GE_SNAKE; //Draw snake head at updated position
+			Snake_Draw(); //Draw snake at updated position
 		}
 		s.delay = CP_System_GetDt() - s.delay;
 	}
@@ -191,7 +196,7 @@ void snake_update(void)
 	switch (gameState)
 	{
 	case(GAME):
-		Spawn_Food(grid);
+		foodNumber = Spawn_Food(grid, foodNumber);
 		Snake_Draw();
 		Snake_Update_Position();
 		Snake_Movement();
@@ -199,7 +204,7 @@ void snake_update(void)
 		DisplayScore(Score);
 		break;
 	case(GAME_OVER):
-		CP_Settings_Background(bgColor);
+		gameState = GameOver_update();
 		break;
 	default:
 		break;
