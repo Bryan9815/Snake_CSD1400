@@ -56,18 +56,18 @@ int GameOver_Input(void)
 		if(CP_Input_KeyTriggered(KEY_UP) || CP_Input_KeyTriggered(KEY_DOWN))
 			button = QUIT;
 		if (CP_Input_KeyTriggered(KEY_SPACE))
-			return 1;
+			return 0;
 		break;
 	case QUIT:
 		if(CP_Input_KeyTriggered(KEY_UP) || CP_Input_KeyTriggered(KEY_DOWN))
 			button = RETRY;
 		if (CP_Input_KeyTriggered(KEY_SPACE))
-			return 0;
+			return 2;
 		break;
 	default:
 		break;
 	}
-	return 2;
+	return 1;
 }
 
 int GameOver_update(void)

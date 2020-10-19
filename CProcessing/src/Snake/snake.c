@@ -10,9 +10,9 @@
 
 typedef enum
 {
-	MAIN_MENU,
 	GAME,
 	GAME_OVER,
+	QUIT,
 }GameState;
 
 //snake object
@@ -206,6 +206,9 @@ void snake_update(void)
 	case(GAME_OVER):
 		gameState = GameOver_update();
 		break;
+	case(QUIT):
+		snake_exit();
+		break;
 	default:
 		break;
 	}
@@ -213,5 +216,5 @@ void snake_update(void)
 
 void snake_exit(void)
 {
-
+	CP_Engine_Terminate();
 }
