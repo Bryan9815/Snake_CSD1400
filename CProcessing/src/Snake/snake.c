@@ -5,6 +5,7 @@
 #include "../Grid/grid.h"
 #include "../Food/food.h"
 #include "../Score/score.h"
+#include "GameOver.h"
 
 //snake object
 typedef struct
@@ -26,7 +27,7 @@ CP_Color snakeColor;
 snake s;
 int tail[100];
 int tailSize = 1;
-GameState gameState;
+GameState gameState = GAME;
 float defaultDelay;
 
 int foodPosition;
@@ -84,12 +85,13 @@ void snake_init(void)
 	Grid_Init(grid);
 	Spawn_Food(grid);
 	Snake_Create();
-	gameState = GAME;
 }
 
 void Snake_Death(void)
 {
+	GameOver_init(Score);
 	gameState = GAME_OVER;
+	snake_init();
 }
 
 //Snake Direction
@@ -191,7 +193,7 @@ void snake_update(void)
 		DisplayScore(Score);
 		break;
 	case(GAME_OVER):
-		CP_Settings_Background(bgColor);
+		gameState = GameOver_update();
 		break;
 	default:
 		break;
