@@ -10,7 +10,7 @@
 typedef struct
 {
 	int			snakePos;
-	int			delay;
+	float		delay;
 	direction	dir;
 
 }snake;
@@ -27,7 +27,7 @@ snake s;
 int tail[100];
 int tailSize = 3;
 GameState gameState;
-int defaultDelay = 20;
+float defaultDelay;
 
 int foodPosition;
 int Score;
@@ -52,7 +52,7 @@ void Snake_Draw(void)
 void Snake_Create(void)
 {
 	s.dir = CP_Random_RangeInt(1, 4);
-	s.delay = defaultDelay;
+	s.delay = CP_System_GetDt();
 	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
 	for (int i = 0; i < tailSize; i++)
 	{
@@ -74,6 +74,7 @@ void Snake_Create(void)
 			break;
 		}
 	}
+	defaultDelay = 7.0f;
 }
 
 void snake_init(void)
@@ -122,7 +123,7 @@ void Snake_Movement(void)
 //Constant Snake Movement
 void Snake_Update_Position(void)
 {
-	if (s.delay == defaultDelay)
+	if (s.delay >= defaultDelay)
 	{
 		// Wipe old snake & tail positions
 		grid[s.snakePos] = GE_VOID;
@@ -166,7 +167,7 @@ void Snake_Update_Position(void)
 			grid[tail[0]] = GE_TAIL;
 			grid[s.snakePos] = GE_SNAKE;
 		}
-		s.delay = 0;
+		s.delay = CP_System_GetDt() - s.delay;
 	}
 	else
 	{
