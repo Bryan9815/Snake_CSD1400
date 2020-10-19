@@ -4,18 +4,12 @@
 
 CP_Color fontColour, titlefontColour, bgColour;
 
-void Button_init(void)
+void MainMenu_init(void)
 {
-	CP_Settings_RectMode(CP_POSITION_CENTER);
 	titlefontColour = CP_Color_Create(255, 0, 0, 255);
 	fontColour = CP_Color_Create(255, 255, 255, 255);
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
-}
-
-void MainMenu_init(void)
-{
 	bgColour = CP_Color_Create(0, 0, 0, 255);
-	Button_init();
 }
 
 void MainMenu_update(void)
