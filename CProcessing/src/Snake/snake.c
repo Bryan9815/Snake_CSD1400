@@ -32,7 +32,7 @@ GameState gameState;
 float defaultDelay;
 
 int foodNumber;
-int Score;
+float Score;
 CP_Color bgColor;
 
 //Grid that stores the GRID_ELEMENTS type
