@@ -86,6 +86,7 @@ void snake_init(void)
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	Score = 0;
 	tailSize = 1;
+	foodNumber = 0;
 	Grid_Init(grid);
 	Snake_Create();
 }
