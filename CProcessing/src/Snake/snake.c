@@ -15,8 +15,16 @@ typedef struct
 
 }snake;
 
+typedef enum
+{
+	MAIN_MENU,
+	GAME,
+	GAME_OVER,
+}GameState;
+
 CP_Color snakeColor;
 snake s;
+GameState gameState;
 float defaultDelay;
 
 int foodPosition;
@@ -41,6 +49,21 @@ void Snake_Create(void)
 	s.delay = CP_System_GetDt();
 	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
 	defaultDelay = 7.0f;
+}
+
+void snake_init(void)
+{
+	bgColor = CP_Color_Create(0, 0, 0, 255);
+	spawn_food(foodPosition);
+	Score = 0;
+	Grid_Init(grid);
+	Snake_Create();
+	gameState = GAME;
+}
+
+void Snake_Death(void)
+{
+	gameState = GAME_OVER;
 }
 
 //Snake Direction
@@ -77,7 +100,6 @@ void Snake_Update_Position(void)
 		switch (s.dir)
 		{
 		case LEFT:
-			
 			s.snakePos--;
 			break;
 
@@ -96,32 +118,35 @@ void Snake_Update_Position(void)
 		default:
 			break;
 		}
-		grid[s.snakePos] = GE_SNAKE;
+		if (grid[s.snakePos] == GE_WALL) //Boundary Check
+			Snake_Death();
+		else //Update Snake Position
+			grid[s.snakePos] = GE_SNAKE;
 		s.delay = CP_System_GetDt() - s.delay;
 	}
 	else
 	{
-		s.delay = s.delay + 1;
+		s.delay += 1;
 	}
-
-}
-
-void snake_init(void)
-{
-	bgColor = CP_Color_Create(0, 0, 0, 255);
-	spawn_food(foodPosition);
-	Score = 0;
-	Grid_Init(grid);
-	Snake_Create();
 }
 
 void snake_update(void)
 {
-	Snake_Draw();
-	Snake_Update_Position();
-	Snake_Movement();
-	Score += AddScore();
-	DisplayScore(Score);
+	switch (gameState)
+	{
+	case(GAME):
+		Snake_Draw();
+		Snake_Update_Position();
+		Snake_Movement();
+		Score += AddScore();
+		DisplayScore(Score);
+		break;
+	case(GAME_OVER):
+		CP_Settings_Background(bgColor);
+		break;
+	default:
+		break;
+	}
 }
 
 void snake_exit(void)
