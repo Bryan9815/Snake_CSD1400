@@ -3,6 +3,8 @@
 int isFading = 0;
 int fadeAlpha = 0;
 
+float timer;
+
 void StartFade(float fadeSpeed) 
 {
 	isFading = 1;

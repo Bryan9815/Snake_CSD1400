@@ -8,16 +8,16 @@
 #define debug false
 
 /*Initialize Grid*/
-void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
+void GridInit(GRID_ELEMENTS* grid)
 {
 
 	//Boundary
-	for (int i = 0; i < gridW * gridH; i++) {
+	for (int i = 0; i < GRID_SIZE; i++) {
 
-		if (	i < gridW											/*Top Boundary*/
-			|| (i % gridW) == 0										/*Left Boundary*/
-			|| (i % gridW) == gridW - 1								/*Right Boundary*/
-			|| i >= (gridH - 1) * gridW && i < gridW * gridH		/*Bottom Boundary*/
+		if (	i < GRID_WIDTH											/*Top Boundary*/
+			|| (i % GRID_WIDTH) == 0										/*Left Boundary*/
+			|| (i % GRID_WIDTH) == GRID_WIDTH - 1								/*Right Boundary*/
+			|| i >= (GRID_HEIGHT - 1) * GRID_WIDTH && i < GRID_SIZE		/*Bottom Boundary*/
 			) {
 			grid[i] = GE_WALL;										//Set grid element to wall
 		}
@@ -30,10 +30,10 @@ void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH)
 }
 
 /*Draw Call/Update Function for Grid*/
-void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
+void GridUpdate(GRID_ELEMENTS* grid)
 {
 	//Checks thru all the elements
-	for (int i = 0; i < gridW * gridH; i++)
+	for (int i = 0; i < GRID_SIZE; i++)
 	{
 #if !debug
 		switch (grid[i]) 
@@ -41,34 +41,34 @@ void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH)
 		case GE_WALL:
 			CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
 			CP_Graphics_DrawRect(
-				(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
-				(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW),
-				CP_System_GetWindowWidth() / (float)gridW,
-				CP_System_GetWindowHeight() / (float)gridH);
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
+				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
+				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
 			break;
 		case GE_SNAKE:
 			CP_Settings_Fill(CP_Color_Create(0, 255, 255, 255));
 			CP_Graphics_DrawRect(
-				(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
-				(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW),
-				CP_System_GetWindowWidth() / (float)gridW,
-				CP_System_GetWindowHeight() / (float)gridH);
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
+				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
+				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
 			break;
 		case GE_TAIL:
 			CP_Settings_Fill(CP_Color_Create(0, 255, 255, 255));
 			CP_Graphics_DrawRect(
-				(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
-				(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW),
-				CP_System_GetWindowWidth() / (float)gridW,
-				CP_System_GetWindowHeight() / (float)gridH);
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
+				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
+				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
 			break;
 		case GE_FOOD:
 			CP_Settings_Fill(CP_Color_Create(255, 0, 255, 255));
 			CP_Graphics_DrawRect(
-				(CP_System_GetWindowWidth() / (float)gridW) * (i % gridW),
-				(CP_System_GetWindowHeight() / (float)gridH) * (i / gridW),
-				CP_System_GetWindowWidth() / (float)gridW,
-				CP_System_GetWindowHeight() / (float)gridH);
+				(CP_System_GetWindowWidth() / (float)GRID_WIDTH) * (i % GRID_WIDTH),
+				(CP_System_GetWindowHeight() / (float)GRID_HEIGHT) * (i / GRID_WIDTH),
+				CP_System_GetWindowWidth() / (float)GRID_WIDTH,
+				CP_System_GetWindowHeight() / (float)GRID_HEIGHT);
 			break;
 		case GE_VOID:
 			break;

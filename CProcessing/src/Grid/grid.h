@@ -1,4 +1,13 @@
 
+/*-------------------------
+This is for casting a grid
+--------------------------*/
+
+#define GRID_WIDTH 24							//Set the horizontal length
+#define GRID_HEIGHT 18							//Set the vertical length
+
+#define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
+
 //Grid that stores the GRID_ELEMENTS type
 typedef enum 
 {
@@ -10,5 +19,5 @@ typedef enum
 
 }GRID_ELEMENTS;
 
-void GridInit(GRID_ELEMENTS* grid, int gridW, int gridH);
-void GridUpdate(GRID_ELEMENTS* grid, int gridW, int gridH);
+void GridInit(GRID_ELEMENTS* grid);
+void GridUpdate(GRID_ELEMENTS* grid);

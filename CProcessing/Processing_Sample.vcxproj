@@ -25,6 +25,7 @@
     <ClCompile Include="src\Snake\GameOver.c" />
     <ClCompile Include="src\Snake\snake.c" />
     <ClCompile Include="src\Snake\food.c" />
+    <ClCompile Include="src\UI\button.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grid\grid.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="src\Snake\GameOver.h" />
     <ClInclude Include="src\Snake\snake.h" />
     <ClInclude Include="src\Snake\food.h" />
+    <ClInclude Include="src\UI\button.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

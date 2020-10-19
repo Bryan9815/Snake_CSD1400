@@ -13,6 +13,9 @@
     <Filter Include="src\Snake\Screens">
       <UniqueIdentifier>{dbf4f9ac-3fd1-4ebd-b416-dce8719faf0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{a1cba970-3cea-45fd-ac13-b788b063d9f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -31,6 +34,9 @@
     <ClCompile Include="src\Snake\fader.c">
       <Filter>src\Snake\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\UI\button.c">
+      <Filter>src\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
@@ -45,6 +51,9 @@
     </ClInclude>
     <ClInclude Include="src\Snake\fader.h">
       <Filter>src\Snake\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\button.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

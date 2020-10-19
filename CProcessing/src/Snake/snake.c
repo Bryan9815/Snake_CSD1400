@@ -4,16 +4,9 @@
 #include "cprocessing.h"
 #include "../Grid/grid.h"
 #include "food.h"
+#include "GameOver.h"
 
 
-/*-------------------------
-This is for casting a grid
---------------------------*/
-
-#define GRID_WIDTH 24							//Set the horizontal length
-#define GRID_HEIGHT 18							//Set the vertical length
-
-#define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
 
 GRID_ELEMENTS grid[GRID_SIZE];	//Grid Array
 
@@ -75,6 +68,7 @@ void CollisionUpdate(int newPos)
 	if (grid[newPos] == GE_WALL || grid[newPos] == GE_SNAKE) 
 	{
 		//LOSE GAME
+		CP_Engine_SetNextGameState(GameOverInit, GameOverUpdate, GameOverExit);
 	}
 	else 
 	{
@@ -147,7 +141,7 @@ void MovementUpdate(void)
 void SnakeDraw(void)
 {
 	CP_Settings_Background(bgColor);
-	GridUpdate(grid, GRID_WIDTH, GRID_HEIGHT);
+	GridUpdate(grid);
 	//CP_IMAGE cm = CP_Image_Load
 	//CP_Image_Draw(
 
@@ -157,7 +151,7 @@ void SnakeDraw(void)
 void SnakeInit(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
-	GridInit(grid, GRID_WIDTH, GRID_HEIGHT);
+	GridInit(grid);
 
 	snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
 	for (int i = 0; i < snakeSize; i++)
