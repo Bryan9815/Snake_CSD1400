@@ -9,16 +9,25 @@
 //snake object
 typedef struct
 {
-	CP_Vector	snakePos;
-	int			radius;
-	int			delay;
+	int			snakePos;
+	float		delay;
 	direction	dir;
 
 }snake;
 
+typedef enum
+{
+	MAIN_MENU,
+	GAME,
+	GAME_OVER,
+}GameState;
+
 CP_Color snakeColor;
 snake s;
-int defaultDelay = 20;
+int tail[100];
+int tailSize = 3;
+GameState gameState;
+float defaultDelay;
 
 int foodPosition;
 int Score;
@@ -32,27 +41,55 @@ void Snake_Draw(void)
 {
 	CP_Settings_Background(bgColor);
 	Grid_Update(grid);
-}
-
-//Draw the snake's head
-void Snake_Display(void)
-{
-	CP_Settings_Fill(snakeColor);
-	CP_Settings_EllipseMode(CP_POSITION_CENTER);
-	CP_Graphics_DrawCircle((s.snakePos.x / GRID_WIDTH) * CP_System_GetWindowWidth(),
-		(s.snakePos.y / GRID_HEIGHT) * CP_System_GetWindowHeight(),
-		(float)s.radius);
+	grid[s.snakePos] = GE_SNAKE;
+	for (int i = 0; i < tailSize; i++)
+	{
+		grid[tail[i]] = GE_TAIL;
+	}
 }
 
 //Initialize snake variables
 void Snake_Create(void)
 {
-	snakeColor = CP_Color_Create(255, 100, 100, 255);
-	s.snakePos.x = GRID_WIDTH / 2;
-	s.snakePos.y = GRID_HEIGHT / 2;
-	s.radius = 40;
 	s.dir = CP_Random_RangeInt(1, 4);
-	s.delay = defaultDelay;
+	s.delay = CP_System_GetDt();
+	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
+	for (int i = 0; i < tailSize; i++)
+	{
+		switch (s.dir)
+		{
+		case LEFT:
+			tail[i] = s.snakePos + i;
+			break;
+		case RIGHT:
+			tail[i] = s.snakePos - i;
+			break;
+		case UP:
+			tail[i] = s.snakePos + GRID_WIDTH * i;
+			break;
+		case DOWN:
+			tail[i] = s.snakePos - GRID_WIDTH * i;
+			break;
+		default:
+			break;
+		}
+	}
+	defaultDelay = 7.0f;
+}
+
+void snake_init(void)
+{
+	bgColor = CP_Color_Create(0, 0, 0, 255);
+	spawn_food(foodPosition);
+	Score = 0;
+	Grid_Init(grid);
+	Snake_Create();
+	gameState = GAME;
+}
+
+void Snake_Death(void)
+{
+	gameState = GAME_OVER;
 }
 
 //Snake Direction
@@ -61,82 +98,100 @@ void Snake_Movement(void)
 	if (CP_Input_KeyTriggered(KEY_UP) && (s.dir != DOWN))
 	{
 		s.dir = UP;
-		s.snakePos.y -= 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_DOWN) && (s.dir != UP))
 	{
 		s.dir = DOWN;
-		s.snakePos.y += 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_LEFT) && (s.dir != RIGHT))
 	{
 		s.dir = LEFT;
-		s.snakePos.x -= 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_RIGHT) && (s.dir != LEFT))
 	{
 		s.dir = RIGHT;
-		s.snakePos.x += 1;
 	}
-	
+	if (CP_Input_KeyTriggered(KEY_R))
+	{
+		snake_init();
+	}
 }
 
 //Constant Snake Movement
 void Snake_Update_Position(void)
 {
-	if (s.delay == defaultDelay)
+	if (s.delay >= defaultDelay)
 	{
-		switch (s.dir)
+		// Wipe old snake & tail positions
+		grid[s.snakePos] = GE_VOID;
+		for (int i = 0; i < tailSize; i++)
+		{
+			grid[tail[i]] = GE_VOID;
+		}
+		int oldSnakePos = s.snakePos;
+
+		switch (s.dir) //Compute snake movement
 		{
 		case LEFT:
-			s.snakePos.x -= 1;
+			s.snakePos--;
 			break;
 
 		case RIGHT:
-			s.snakePos.y += 1;
+			s.snakePos++;
 			break;
 
 		case UP:
-			s.snakePos.y -= 1;
+			s.snakePos -= GRID_WIDTH;
 			break;
 
 		case DOWN:
-			s.snakePos.y += 1;
+			s.snakePos += GRID_WIDTH;
 			break;
 
 		default:
 			break;
 		}
-
-		s.delay = 0;
+		if (grid[s.snakePos] == GE_WALL) //Boundary Check
+			Snake_Death();
+		else //Update Snake Position
+		{
+			for (int i = tailSize - 1; i > 0; i--) //Update Tail position;
+			{
+				tail[i] = tail[i - 1];
+				grid[tail[i]] = GE_TAIL;
+			}
+			tail[0] = oldSnakePos;
+			grid[tail[0]] = GE_TAIL;
+			grid[s.snakePos] = GE_SNAKE;
+		}
+		s.delay = CP_System_GetDt() - s.delay;
 	}
 	else
 	{
 		s.delay += 1;
 	}
-
-}
-
-void snake_init(void)
-{
-	bgColor = CP_Color_Create(0, 0, 0, 255);
-	Grid_Init(grid);
-	Score = 0;
-	Spawn_Food(grid);
-	Snake_Create();
 }
 
 void snake_update(void)
 {
-	Snake_Draw();
-	Snake_Display();
-	Snake_Update_Position();
-	Snake_Movement();
-	Score += AddScore();
-	DisplayScore(Score);
+	switch (gameState)
+	{
+	case(GAME):
+		Snake_Draw();
+		Snake_Update_Position();
+		Snake_Movement();
+		Score += AddScore();
+		DisplayScore(Score);
+		break;
+	case(GAME_OVER):
+		CP_Settings_Background(bgColor);
+		break;
+	default:
+		break;
+	}
 }
 
 void snake_exit(void)
