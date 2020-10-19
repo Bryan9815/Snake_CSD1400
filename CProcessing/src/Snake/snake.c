@@ -154,7 +154,7 @@ void Snake_Update_Position(void)
 		default:
 			break;
 		}
-		if (grid[s.snakePos] == GE_WALL) //Boundary Check
+		if (grid[s.snakePos] == GE_WALL) //Wall Boundary Check
 			Snake_Death();
 		else //Update Snake Position
 		{
@@ -165,6 +165,11 @@ void Snake_Update_Position(void)
 			}
 			tail[0] = oldSnakePos;
 			grid[tail[0]] = GE_TAIL;
+			if (grid[s.snakePos] == GE_FOOD) //Food Boundary Check
+			{
+				Eat_Food(Score, grid);
+				tailSize++;
+			}
 			grid[s.snakePos] = GE_SNAKE;
 		}
 		s.delay = CP_System_GetDt() - s.delay;
