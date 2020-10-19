@@ -14,6 +14,7 @@
 
 #include "cprocessing.h"
 #include "Snake\snake.h"
+#include "Snake/MainMenu.h"
 #include <stdio.h>
 
 static const float WINDOW_SCALE = 0.8f;
@@ -24,7 +25,8 @@ static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 void game_init(void)
 {
 	// initialize variables and CProcessing settings for this gamestate
-	snake_init();
+	//snake_init();
+	MainMenu_init();
 }
 
 // use CP_Engine_SetNextGameState to specify this function as the update function
@@ -32,7 +34,8 @@ void game_init(void)
 void game_update(void)
 {
 	// check input, update simulation, render etc.
-	snake_update();
+	//snake_update();
+	MainMenu_update();
 }
 
 // use CP_Engine_SetNextGameState to specify this function as the exit function
@@ -40,7 +43,8 @@ void game_update(void)
 void game_exit(void)
 {
 	// shut down the gamestate and cleanup any dynamic memory
-	snake_exit();
+	//snake_exit();
+	MainMenu_exit();
 }
 
 // main() the starting point for the program
