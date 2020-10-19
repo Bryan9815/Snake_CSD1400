@@ -1,24 +1,27 @@
 #include "food.h"
 #include "../../CProcessing/inc/cprocessing.h"
-#define GRID_WIDTH 48							//Set the horizontal length
-#define GRID_HEIGHT 36							//Set the vertical length
-#define GRID_SIZE GRID_WIDTH*GRID_HEIGHT		//Total size
+#include "../Grid/grid.h"
+#include <stdio.h>
 
 //function for setting food position
-int spawn_food(int food_pos)
+void Spawn_Food(GRID_ELEMENTS *grid)
 {
+	int food_pos;
 	do
 		food_pos = CP_Random_RangeInt(0, GRID_SIZE); // spawn food randomly within grid
 	while ((food_pos % GRID_WIDTH) <= 1 || (food_pos % GRID_WIDTH) >= (GRID_WIDTH - 2)  //redo if food near or within sides
 		|| (food_pos / GRID_WIDTH) <= 1 || (food_pos / GRID_WIDTH) >= (GRID_HEIGHT - 1)); //redo if food near or within top or bottom
-	return food_pos;
+	grid[food_pos] = GE_FOOD;
 }
 
 //function for checking if snake eats food
-void eat_food(int snake_head_pos, int food_pos)
+int Eat_Food(int snake_head_pos, int food_pos, GRID_ELEMENTS *grid)
 {
+	int foodscore = 0;
 	if (snake_head_pos == food_pos) // if snake head is in the same grid as food
 	{
-		spawn_food(food_pos); //respawn food somewhere else
+		Spawn_Food(grid); //respawn food somewhere else
+		foodscore = 200; //add 200 to score
 	}
+	return foodscore;
 }

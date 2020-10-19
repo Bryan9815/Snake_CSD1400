@@ -1,7 +1,7 @@
 /*-------------------------
 This is for casting a grid
 --------------------------*/
-
+#pragma once
 #define GRID_WIDTH 48							//Set the horizontal length
 #define GRID_HEIGHT 36							//Set the vertical length
 

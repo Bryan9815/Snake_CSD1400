@@ -123,9 +123,9 @@ void Snake_Update_Position(void)
 void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
-	spawn_food(foodPosition);
-	Score = 0;
 	Grid_Init(grid);
+	Score = 0;
+	Spawn_Food(grid);
 	Snake_Create();
 }
 
