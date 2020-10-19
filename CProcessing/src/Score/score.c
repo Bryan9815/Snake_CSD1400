@@ -1,8 +1,9 @@
 #include "../../CProcessing/inc/cprocessing.h"
 #include "score.h"
+#include "../Food/food.h"
 #include <stdio.h>
 
-int AddScore(void) //function for time-based score
+int AddScore() //function for time-based score
 {
 	int ScorePerFrame = (int)(CP_System_GetDt() * 60); //score increases by 60 per sec
 	return ScorePerFrame;

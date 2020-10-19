@@ -80,9 +80,9 @@ void Snake_Create(void)
 void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
-	spawn_food(foodPosition);
 	Score = 0;
 	Grid_Init(grid);
+	Spawn_Food(grid);
 	Snake_Create();
 	gameState = GAME;
 }
