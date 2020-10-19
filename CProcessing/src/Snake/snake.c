@@ -5,6 +5,7 @@
 #include "../Grid/grid.h"
 #include "../Food/food.h"
 #include "../Score/score.h"
+#include <stdio.h>
 
 //snake object
 typedef struct
@@ -29,7 +30,7 @@ int tailSize = 1;
 GameState gameState;
 float defaultDelay;
 
-int foodPosition;
+int foodNumber;
 int Score;
 CP_Color bgColor;
 
@@ -165,6 +166,7 @@ void Snake_Update_Position(void)
 			if (grid[s.snakePos] == GE_FOOD) //Eat food
 			{
 				Score += 50;
+				foodNumber--;
 				tailSize++;
 				tail[tailSize - 1] = tail[tailSize - 2];
 			}
@@ -183,7 +185,7 @@ void snake_update(void)
 	switch (gameState)
 	{
 	case(GAME):
-		Spawn_Food(grid);
+		foodNumber = Spawn_Food(grid, foodNumber);
 		Snake_Draw();
 		Snake_Update_Position();
 		Snake_Movement();
