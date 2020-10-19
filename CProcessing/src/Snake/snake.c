@@ -10,14 +10,14 @@
 typedef struct
 {
 	int			snakePos;
-	int			delay;
+	float		delay;
 	direction	dir;
 
 }snake;
 
 CP_Color snakeColor;
 snake s;
-int defaultDelay = 20;
+float defaultDelay;
 
 int foodPosition;
 int Score;
@@ -38,8 +38,9 @@ void Snake_Draw(void)
 void Snake_Create(void)
 {
 	s.dir = CP_Random_RangeInt(1, 4);
-	s.delay = defaultDelay;
+	s.delay = CP_System_GetDt();
 	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
+	defaultDelay = 7.0f;
 }
 
 //Snake Direction
@@ -70,7 +71,7 @@ void Snake_Movement(void)
 //Constant Snake Movement
 void Snake_Update_Position(void)
 {
-	if (s.delay == defaultDelay)
+	if (s.delay >= defaultDelay)
 	{
 		grid[s.snakePos] = GE_VOID;
 		switch (s.dir)
@@ -96,11 +97,11 @@ void Snake_Update_Position(void)
 			break;
 		}
 		grid[s.snakePos] = GE_SNAKE;
-		s.delay = 0;
+		s.delay = CP_System_GetDt() - s.delay;
 	}
 	else
 	{
-		s.delay += 1;
+		s.delay = s.delay + 1;
 	}
 
 }
