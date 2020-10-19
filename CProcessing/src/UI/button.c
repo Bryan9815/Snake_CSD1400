@@ -2,21 +2,20 @@
 #include "Button.h"
 
 /* WHY CANT I OVERLOAD FUNCTIONS */
-Button CreateButton(float x, float y, float width, float height)
+Button CreateButton(float x, float y, float width, float height)    //fuck this
 {
     Button newButton;
 
-    newButton.buttonState = 0;
   
     newButton.x = x;
     newButton.y = y;
-
     newButton.width = width;
     newButton.height = height;
 
     return newButton;
 }
 
+#if 0
 Button CreateButtonImage(float x, float y, float width, float height, CP_Image buttonUp)
 {
     Button newButton = CreateButton(x, y, width, height);
@@ -62,5 +61,7 @@ Button ButtonUpdate(Button button)
 
     return button;
 }
+
+#endif
 
 
