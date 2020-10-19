@@ -1,27 +1,54 @@
 #include <cprocessing.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include "fader.h"
 
-int isFading = 0;
-int fadeAlpha = 0;
 
-float timer;
-
-void StartFade(float fadeSpeed) 
+Fader StartFade(Fader fader, FadeType fadeType)	//wtf
 {
-	isFading = 1;
+	fader.isFading = true;
+	fader.fadeType = fadeType;
+
+	return fader;
 }
 
-void StopFade(void) 
+Fader StopFade(Fader fader, FadeType fadeType)	//wtf
 {
-	fadeAlpha = 0;
+	fader.isFading = false;
+	fadeType = fadeType;
+
+	return fader;
 }
-void UpdateFade(void)
+
+Fader UpdateFade(Fader fader)	//wtf
 {
-	if (!isFading) 
+	if (fader.isFading) //fading
 	{
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, fadeAlpha));
+		if (fader.fadeType == FADE_IN) 
+		{
+			fader.fadeAlpha += CP_System_GetDt() * 200;	//Fade Speed is 200 zzz
+		}
+		else 
+		{
+			fader.fadeAlpha -= CP_System_GetDt() * 200;
+		}
+
+		if (fader.fadeType == FADE_IN && fader.fadeAlpha >= 255) 
+		{
+			fader.fadeAlpha = 255;
+			fader.isFading = false;
+		}
+		else if (fader.fadeType == FADE_OUT && fader.fadeAlpha <= 0) 
+		{
+			fader.fadeAlpha = 0;
+			fader.isFading = false;
+		}
 	}
-		
+	//printf("%d\n", (int)fader.fadeAlpha);
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, (int)fader.fadeAlpha));
 	CP_Graphics_DrawRect(0, 0, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
+
+	return fader;
 }
 
 

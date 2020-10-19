@@ -5,7 +5,7 @@
 #include "../Grid/grid.h"
 #include "food.h"
 #include "GameOver.h"
-
+#include "fader.h"
 
 
 GRID_ELEMENTS grid[GRID_SIZE];	//Grid Array
@@ -26,6 +26,7 @@ typedef enum
 } DIRECTION;
 
 DIRECTION dir = RIGHT;
+DIRECTION inputDir = RIGHT;
 int snakeSize = 3;
 
 int tailPos = 0;
@@ -41,25 +42,38 @@ Graphics
 
 CP_Color bgColor;
 
+Fader fader;
+
 void SnakeInput(void) 
 {
 	
 	if (CP_Input_KeyTriggered(KEY_W) && dir != DOWN)
 	{
-		dir = UP;
+		inputDir = UP;
 	}
 	else if (CP_Input_KeyTriggered(KEY_S) && dir != UP)
 	{
-		dir = DOWN;
+		inputDir = DOWN;
 	}
 	else if (CP_Input_KeyTriggered(KEY_A) && dir != RIGHT)
 	{
-		dir = LEFT;
+		inputDir = LEFT;
 	}
 	else if (CP_Input_KeyTriggered(KEY_D) && dir != LEFT)
 	{
-		dir = RIGHT;
+		inputDir = RIGHT;
 	}
+
+	//Test Fader
+	if (CP_Input_KeyTriggered(KEY_LEFT_BRACKET)) 
+	{
+		fader = StartFade(fader, FADE_IN);
+	}
+	if (CP_Input_KeyTriggered(KEY_RIGHT_BRACKET))
+	{
+		fader = StartFade(fader, FADE_OUT);
+	}
+	
 }
 
 void CollisionUpdate(int newPos) 
@@ -145,12 +159,18 @@ void SnakeDraw(void)
 	//CP_IMAGE cm = CP_Image_Load
 	//CP_Image_Draw(
 
+	fader = UpdateFade(fader);
+
 }
 
 
 void SnakeInit(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
+
+	fader.fadeAlpha = 255.0f;
+	fader = StartFade(fader, FADE_OUT);
+
 	GridInit(grid);
 
 	snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
@@ -173,6 +193,7 @@ void SnakeUpdate(void)
 	if (time <= 0)
 	{
 		MovementUpdate();
+		dir = inputDir;
 		time = TIMER;
 	}
 
