@@ -42,7 +42,7 @@ void Snake_Draw(void)
 	CP_Settings_Background(bgColor);
 	Grid_Update(grid);
 	grid[s.snakePos] = GE_SNAKE;
-	for (int i = 0; i < tailSize; i++)
+	for (int i = 0; i < tailSize; i++) // Tail
 	{
 		grid[tail[i]] = GE_TAIL;
 	}
@@ -154,7 +154,7 @@ void Snake_Update_Position(void)
 		default:
 			break;
 		}
-		if (grid[s.snakePos] == GE_WALL) //Wall Boundary Check
+		if (grid[s.snakePos] == GE_WALL || grid[s.snakePos] == GE_TAIL) //Wall and Tail collision check
 			Snake_Death();
 		else //Update Snake Position
 		{
@@ -165,10 +165,11 @@ void Snake_Update_Position(void)
 			}
 			tail[0] = oldSnakePos;
 			grid[tail[0]] = GE_TAIL;
-			if (grid[s.snakePos] == GE_FOOD) //Food Boundary Check
+			if (grid[s.snakePos] == GE_FOOD) //Eat food
 			{
 				Eat_Food(Score, grid);
 				tailSize++;
+				tail[tailSize - 1] = tail[tailSize - 2];
 			}
 			grid[s.snakePos] = GE_SNAKE;
 		}
