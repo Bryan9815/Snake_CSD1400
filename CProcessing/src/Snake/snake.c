@@ -25,7 +25,7 @@ typedef enum
 CP_Color snakeColor;
 snake s;
 int tail[100];
-int tailSize = 3;
+int tailSize = 1;
 GameState gameState;
 float defaultDelay;
 
@@ -125,12 +125,6 @@ void Snake_Update_Position(void)
 {
 	if (s.delay >= defaultDelay)
 	{
-		// Wipe old snake & tail positions
-		grid[s.snakePos] = GE_VOID;
-		for (int i = 0; i < tailSize; i++)
-		{
-			grid[tail[i]] = GE_VOID;
-		}
 		int oldSnakePos = s.snakePos;
 
 		switch (s.dir) //Compute snake movement
@@ -158,6 +152,10 @@ void Snake_Update_Position(void)
 			Snake_Death();
 		else //Update Snake Position
 		{
+			for (int i = 0; i < tailSize; i++) // Wipe old snake & tail positions
+			{
+				grid[tail[i]] = GE_VOID;
+			}
 			for (int i = tailSize - 1; i > 0; i--) //Update Tail position;
 			{
 				tail[i] = tail[i - 1];
@@ -171,7 +169,7 @@ void Snake_Update_Position(void)
 				tailSize++;
 				tail[tailSize - 1] = tail[tailSize - 2];
 			}
-			grid[s.snakePos] = GE_SNAKE;
+			grid[s.snakePos] = GE_SNAKE; //Draw snake head at updated position
 		}
 		s.delay = CP_System_GetDt() - s.delay;
 	}
