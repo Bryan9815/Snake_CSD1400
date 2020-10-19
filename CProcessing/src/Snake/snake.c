@@ -82,7 +82,6 @@ void snake_init(void)
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	Score = 0;
 	Grid_Init(grid);
-	Spawn_Food(grid);
 	Snake_Create();
 	gameState = GAME;
 }
@@ -165,7 +164,7 @@ void Snake_Update_Position(void)
 			grid[tail[0]] = GE_TAIL;
 			if (grid[s.snakePos] == GE_FOOD) //Eat food
 			{
-				Eat_Food(Score, grid);
+				Score += 50;
 				tailSize++;
 				tail[tailSize - 1] = tail[tailSize - 2];
 			}
@@ -184,6 +183,7 @@ void snake_update(void)
 	switch (gameState)
 	{
 	case(GAME):
+		Spawn_Food(grid);
 		Snake_Draw();
 		Snake_Update_Position();
 		Snake_Movement();

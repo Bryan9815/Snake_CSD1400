@@ -1,6 +1,5 @@
 #include "../../CProcessing/inc/cprocessing.h"
 #include "score.h"
-#include "../Food/food.h"
 #include <stdio.h>
 
 int AddScore() //function for time-based score
