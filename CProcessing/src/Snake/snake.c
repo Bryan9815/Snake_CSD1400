@@ -9,8 +9,7 @@
 //snake object
 typedef struct
 {
-	CP_Vector	snakePos;
-	int			radius;
+	int			snakePos;
 	int			delay;
 	direction	dir;
 
@@ -32,27 +31,15 @@ void Snake_Draw(void)
 {
 	CP_Settings_Background(bgColor);
 	Grid_Update(grid);
-}
-
-//Draw the snake's head
-void Snake_Display(void)
-{
-	CP_Settings_Fill(snakeColor);
-	CP_Settings_EllipseMode(CP_POSITION_CENTER);
-	CP_Graphics_DrawCircle((s.snakePos.x / GRID_WIDTH) * CP_System_GetWindowWidth(),
-		(s.snakePos.y / GRID_HEIGHT) * CP_System_GetWindowHeight(),
-		(float)s.radius);
+	grid[s.snakePos] = GE_SNAKE;
 }
 
 //Initialize snake variables
 void Snake_Create(void)
 {
-	snakeColor = CP_Color_Create(255, 100, 100, 255);
-	s.snakePos.x = GRID_WIDTH / 2;
-	s.snakePos.y = GRID_HEIGHT / 2;
-	s.radius = 40;
 	s.dir = CP_Random_RangeInt(1, 4);
 	s.delay = defaultDelay;
+	s.snakePos = GRID_SIZE / 2 - (GRID_WIDTH / 2);
 }
 
 //Snake Direction
@@ -61,25 +48,21 @@ void Snake_Movement(void)
 	if (CP_Input_KeyTriggered(KEY_UP) && (s.dir != DOWN))
 	{
 		s.dir = UP;
-		s.snakePos.y -= 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_DOWN) && (s.dir != UP))
 	{
 		s.dir = DOWN;
-		s.snakePos.y += 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_LEFT) && (s.dir != RIGHT))
 	{
 		s.dir = LEFT;
-		s.snakePos.x -= 1;
 	}
 
 	else if (CP_Input_KeyTriggered(KEY_RIGHT) && (s.dir != LEFT))
 	{
 		s.dir = RIGHT;
-		s.snakePos.x += 1;
 	}
 	
 }
@@ -89,28 +72,30 @@ void Snake_Update_Position(void)
 {
 	if (s.delay == defaultDelay)
 	{
+		grid[s.snakePos] = GE_VOID;
 		switch (s.dir)
 		{
 		case LEFT:
-			s.snakePos.x -= 1;
+			
+			s.snakePos--;
 			break;
 
 		case RIGHT:
-			s.snakePos.y += 1;
+			s.snakePos++;
 			break;
 
 		case UP:
-			s.snakePos.y -= 1;
+			s.snakePos -= GRID_WIDTH;
 			break;
 
 		case DOWN:
-			s.snakePos.y += 1;
+			s.snakePos += GRID_WIDTH;
 			break;
 
 		default:
 			break;
 		}
-
+		grid[s.snakePos] = GE_SNAKE;
 		s.delay = 0;
 	}
 	else
@@ -132,7 +117,6 @@ void snake_init(void)
 void snake_update(void)
 {
 	Snake_Draw();
-	Snake_Display();
 	Snake_Update_Position();
 	Snake_Movement();
 	Score += AddScore();
