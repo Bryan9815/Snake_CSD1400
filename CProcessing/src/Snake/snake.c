@@ -8,6 +8,13 @@
 #include "GameOver.h"
 #include <stdio.h>
 
+typedef enum
+{
+	MAIN_MENU,
+	GAME,
+	GAME_OVER,
+}GameState;
+
 //snake object
 typedef struct
 {
@@ -18,17 +25,10 @@ typedef struct
 
 }snake;
 
-typedef enum
-{
-	MAIN_MENU,
-	GAME,
-	GAME_OVER,
-}GameState;
-
 CP_Color snakeColor;
 snake s;
-int tail[100];
-int tailSize = 1;
+int tail[GRID_SIZE];
+int tailSize;
 GameState gameState = GAME;
 float defaultDelay;
 
@@ -85,6 +85,7 @@ void snake_init(void)
 {
 	bgColor = CP_Color_Create(0, 0, 0, 255);
 	Score = 0;
+	tailSize = 1;
 	Grid_Init(grid);
 	Snake_Create();
 }
@@ -163,10 +164,9 @@ void Snake_Update_Position(void)
 			{
 				grid[tail[i]] = GE_VOID;
 			}
-			for (int i = tailSize - 1; i > 0; i--) //Update Tail position;
+			for (int i = tailSize - 1; i > 0; i--) //Update Tail position
 			{
 				tail[i] = tail[i - 1];
-				grid[tail[i]] = GE_TAIL;
 			}
 			tail[0] = oldSnakePos;
 			grid[tail[0]] = GE_TAIL;
@@ -177,7 +177,7 @@ void Snake_Update_Position(void)
 				tailSize++;
 				tail[tailSize - 1] = tail[tailSize - 2];
 			}
-			grid[s.snakePos] = GE_SNAKE; //Draw snake head at updated position
+			Snake_Draw(); //Draw snake at updated position
 		}
 		s.delay = CP_System_GetDt() - s.delay;
 	}
