@@ -18,10 +18,10 @@ typedef enum
 //snake object
 typedef struct
 {
-	int			snakePos;
-	float		delay;
-	direction	dir,
-				inputdir;
+	int			snakePos;		//Snake Position (grid)
+	float		delay;			//Timer for movement delay
+	direction	dir,			//current direction
+				inputdir;		//input direction
 
 }snake;
 
